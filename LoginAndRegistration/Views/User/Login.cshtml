@@ -1,0 +1,84 @@
+﻿@model LoginAndRegistration.Models.UserLogin
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginAndRegistration.cshtml";
+}
+
+<div class="card shadow rounded-0 overflow-hidden">
+    <div class="row g-0">
+        <div class="col-lg-6 bg-login d-flex align-items-center justify-content-center">
+            <img src="~/assets/images/error/login-img.jpg" class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-6">
+            <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title  mb-4">Đăng nhập</h5>
+
+                @using (Html.BeginForm())
+                {
+                    <div class="d-grid">
+                        <a class="btn btn-white radius-30" href="javascript:;">
+                            <span class="d-flex justify-content-center align-items-center">
+                                <img class="me-2" src="assets/images/icons/search.svg" width="16" alt="">
+                                <span>Đăng nhập với Google</span>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="login-separater text-center mb-4">
+                        <span>HOẶC ĐĂNG NHẬP BẰNG GMAIL</span>
+                        <hr>
+                    </div>
+                    @Html.AntiForgeryToken()
+
+                    <div class="row g-3">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <div class="text-danger">*@ViewBag.Message</div>
+                        }
+
+                        <div class="col-12">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label" })
+                            <div class="ms-auto position-relative">
+                                <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-envelope-fill"></i></div>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control radius-30 ps-5" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger invalid-feedback d-block" })
+                                @Html.ValidationMessage("EmailExist", new { @class = "text-danger invalid-feedback d-block" })
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-label" })
+                            <div class="ms-auto position-relative">
+                                <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
+                                @Html.PasswordFor(model => model.Password, new { @class = "form-control radius-30 ps-5" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger invalid-feedback d-block" })
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-check form-switch">
+                                @Html.CheckBoxFor(model => model.RememberMe, new { @class = "form-check-input" })
+                                @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+                                @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "form-check-label" })
+                            </div>
+                        </div>
+                        <div class="col-6 text-end">
+                            @Html.ActionLink("Quên mật khẩu?", "ResetPassword", "User")
+                        </div>
+
+                        <div class="col-12">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary radius-30">Đăng nhập</button>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <p class="mb-0">Bạn chưa có tải khoản? @Html.ActionLink("Đăng ký tại đây?s", "Registration", "User")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

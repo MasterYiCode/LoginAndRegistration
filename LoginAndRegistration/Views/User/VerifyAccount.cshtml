@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "VerifyAccount";
+    Layout = "~/Views/Shared/_LoginAndRegistration.cshtml";
+}
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    <div>
+        <div class="alert alert-success" role="alert">
+            <strong>Thành công! </strong>Tài khoản của bạn đã được kích hoạt thành công. Bấm vào đây để @Html.ActionLink("Đăng nhập", "Login", "User")
+        </div>
+    </div>
+}
+else
+{
+    <div>
+        <div class="alert alert-danger" role="alert">
+            <strong>Thất bại! </strong>@ViewBag.Message;
+        </div>
+    </div>
+}
+
